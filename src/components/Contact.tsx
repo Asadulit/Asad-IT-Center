@@ -43,19 +43,19 @@ const Contact = () => {
     {
       icon: Phone,
       title: 'Phone',
-      details: ['+1 (555) 123-4567', '+44 20 7946 0958'],
+      details: ['+880 1925 146273'],
       subtitle: 'Call us anytime'
     },
     {
       icon: Mail,
       title: 'Email',
-      details: ['hello@asaditcenter.com', 'support@asaditcenter.com'],
+      details: ['Asadulit@gmail.com', 'info@asaditcenter.com'],
       subtitle: 'We reply within 2 hours'
     },
     {
       icon: MapPin,
       title: 'Offices',
-      details: ['New York • London • Sydney', 'Remote teams worldwide'],
+      details: ['Jhenaidah • Dhaka • Bangladesh', 'Remote teams worldwide'],
       subtitle: 'Global presence'
     },
     {
@@ -67,6 +67,7 @@ const Contact = () => {
   ];
 
   const services = [
+    'Website Design & Development',
     'Search Engine Optimization (SEO)',
     'Pay-Per-Click Advertising (PPC)',
     'Content Marketing',
@@ -77,12 +78,33 @@ const Contact = () => {
   ];
 
   const budgetRanges = [
-    '$5,000 - $10,000/month',
-    '$10,000 - $25,000/month',
-    '$25,000 - $50,000/month',
-    '$50,000+/month'
+    '$100 - $5,000/month',
+    '$5,000+/month'
   ];
 
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setResult("Sending....");
+    const formData = new FormData(event.target);
+
+    formData.append("access_key", "96c09ea0-464f-408b-a98a-e4db232e359b");
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      setResult("Form Submitted Successfully");
+      event.target.reset();
+    } else {
+      console.log("Error", data);
+      setResult(data.message);
+    }
+  };
+  
   return (
     <section id="contact" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -138,14 +160,14 @@ const Contact = () => {
               <h4 className="font-semibold text-gray-900">Prefer a quick chat?</h4>
               <div className="space-y-3">
                 <a
-                  href="#"
+                  href="http://wa.me/+8801925146273"
                   className="flex items-center space-x-3 text-blue-600 hover:text-blue-700 transition-colors"
                 >
                   <MessageCircle className="h-5 w-5" />
-                  <span>Live Chat Support</span>
+                  <span>Whatsapp Live Chat Support</span>
                 </a>
                 <a
-                  href="#"
+                  href="http://wa.me/+8801925146273"
                   className="flex items-center space-x-3 text-blue-600 hover:text-blue-700 transition-colors"
                 >
                   <Calendar className="h-5 w-5" />
