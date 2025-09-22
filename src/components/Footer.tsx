@@ -45,7 +45,6 @@ const Footer = () => {
   const globalOffices = 
     { city: 'Dhaka', country: 'Bangladesh', phone: '+880 1925 146273' }
     { city: 'New York', country: 'USA', phone: '+1 ‪(803) 455-4554‬' },
-    { city: 'London', country: 'UK', phone: '+44 7956 372369' },
   ];
 
   const socialLinks = [
