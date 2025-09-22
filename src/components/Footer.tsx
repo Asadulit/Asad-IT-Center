@@ -43,9 +43,8 @@ const Footer = () => {
   ];
 
    const globalOffices = [
-    { city: 'New York', country: 'USA', phone: '+1 (555) 123-4567' },
-    { city: 'London', country: 'UK', phone: '+44 20 7946 0958' },
-    { city: 'Sydney', country: 'Australia', phone: '+61 2 1234 5678' }
+    { city: 'New York', country: 'USA', phone: '+1 ‪(803) 455-4554‬' },
+    { city: 'Dhaka', country: 'Bangladesh', phone: '+880 1925 146273' }
   ];
 
   const socialLinks = [
