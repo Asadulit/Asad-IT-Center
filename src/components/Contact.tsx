@@ -1,133 +1,132 @@
-import React, { useState } from 'react';
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Clock, 
-  Send, 
+import React, { useState } from "react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  Send,
   CheckCircle,
   Globe,
   MessageCircle,
-  Calendar
-} from 'lucide-react';
+  Calendar,
+} from "lucide-react";
 
-const Contact = () => {
+const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    website: '',
-    service: '',
-    message: '',
-    budget: ''
+    name: "",
+    email: "",
+    company: "",
+    website: "",
+    service: "",
+    message: "",
+    budget: "",
   });
 
+  const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // 👉 Web3Forms submit
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 5000);
+    setLoading(true);
+    setError("");
+
+    const form = new FormData();
+    form.append("access_key", "96c09ea0-464f-408b-a98a-e4db232e359b");
+
+    Object.entries(formData).forEach(([key, value]) => {
+      form.append(key, value);
+    });
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: form,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setIsSubmitted(true);
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          website: "",
+          service: "",
+          message: "",
+          budget: "",
+        });
+      } else {
+        setError(data.message || "Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      setError("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const contactInfo = [
     {
       icon: Phone,
-      title: 'Phone',
-      details: ['+880 1925 146273'],
-      subtitle: 'Call us anytime'
+      title: "Phone",
+      details: ["+880 1925 146273"],
+      subtitle: "Call us anytime",
     },
     {
       icon: Mail,
-      title: 'Email',
-      details: ['asadulit@gmail.com', 'info@asaditcenter.com'],
-      subtitle: 'We reply within 2 hours'
+      title: "Email",
+      details: ["asadulit@gmail.com", "info@asaditcenter.com"],
+      subtitle: "We reply within 2 hours",
     },
     {
       icon: MapPin,
-      title: 'Offices',
-      details: ['Jhenaidah • Dhaka • Bangladesh', 'Remote teams worldwide'],
-      subtitle: 'Global presence'
+      title: "Offices",
+      details: ["Jhenaidah • Dhaka • Bangladesh", "Remote teams worldwide"],
+      subtitle: "Global presence",
     },
     {
       icon: Clock,
-      title: 'Support',
-      details: ['24/7 Available', 'All time zones covered'],
-      subtitle: 'Always here for you'
-    }
+      title: "Support",
+      details: ["24/7 Available", "All time zones covered"],
+      subtitle: "Always here for you",
+    },
   ];
 
   const services = [
-    'Website Design & Development',
-    'Search Engine Optimization (SEO)',
-    'Pay-Per-Click Advertising (PPC)',
-    'Content Marketing',
-    'Social Media Marketing',
-    'Analytics & Reporting',
-    'Mobile Marketing',
-    'Full-Service Package'
+    "Website Design & Development",
+    "Search Engine Optimization (SEO)",
+    "Pay-Per-Click Advertising (PPC)",
+    "Content Marketing",
+    "Social Media Marketing",
+    "Analytics & Reporting",
+    "Mobile Marketing",
+    "Full-Service Package",
   ];
 
   const budgetRanges = [
-    '$100 - $1,000/month',
-    '$1,000 - $2,000/month',
-    '$2,000 - $3,000/month',
-    '$3,000 - $4,000/month',
-    '$5,000+/month'
+    "$100 - $1,000/month",
+    "$1,000 - $2,000/month",
+    "$2,000 - $3,000/month",
+    "$3,000 - $4,000/month",
+    "$5,000+/month",
   ];
 
-  export default function Contact() {
-  const [result, setResult] = React.useState("");
-
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    setResult("Sending....");
-    const formData = new FormData(event.target);
-
-    formData.append("access_key", "96c09ea0-464f-408b-a98a-e4db232e359b");
-
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData
-    });
-
-    const data = await response.json();
-
-    if (data.success) {
-      setResult("Form Submitted Successfully");
-      event.target.reset();
-    } else {
-      console.log("Error", data);
-      setResult(data.message);
-    }
-  };
-
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <input type="text" name="name" required/>
-        <input type="email" name="email" required/>
-        <textarea name="message" required></textarea>
-
-        <button type="submit">Submit Form</button>
-
-      </form>
-      <span>{result}</span>
-
-    </div>
-  );
-}
-
-return (
     <section id="contact" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -136,25 +135,25 @@ return (
             Get In <span className="text-blue-600">Touch</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Ready to transform your digital presence? Let's discuss how we can help 
-            your business achieve its growth goals with our proven strategies.
+            Ready to transform your digital presence? Let's discuss how we can
+            help your business achieve its growth goals with our proven
+            strategies.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-12">
-          {/* Contact Information */}
+          {/* Contact Info */}
           <div className="lg:col-span-1 space-y-8">
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-gray-900">
                 Let's Start a Conversation
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Our team of experts is ready to help you achieve your digital marketing goals. 
-                Reach out to us using any of the methods below.
+                Our team of experts is ready to help you achieve your digital
+                marketing goals. Reach out to us using any of the methods below.
               </p>
             </div>
 
-            {/* Contact Methods */}
             <div className="space-y-6">
               {contactInfo.map((info, index) => {
                 const Icon = info.icon;
@@ -166,9 +165,13 @@ return (
                       </div>
                     </div>
                     <div className="space-y-1">
-                      <h4 className="font-semibold text-gray-900">{info.title}</h4>
-                      {info.details.map((detail, detailIndex) => (
-                        <p key={detailIndex} className="text-gray-700">{detail}</p>
+                      <h4 className="font-semibold text-gray-900">
+                        {info.title}
+                      </h4>
+                      {info.details.map((detail, i) => (
+                        <p key={i} className="text-gray-700">
+                          {detail}
+                        </p>
                       ))}
                       <p className="text-sm text-gray-500">{info.subtitle}</p>
                     </div>
@@ -177,9 +180,10 @@ return (
               })}
             </div>
 
-            {/* Quick Actions */}
             <div className="space-y-4 pt-8 border-t border-gray-200">
-              <h4 className="font-semibold text-gray-900">Prefer a quick chat?</h4>
+              <h4 className="font-semibold text-gray-900">
+                Prefer a quick chat?
+              </h4>
               <div className="space-y-3">
                 <a
                   href="http://wa.me/+8801925146273"
@@ -206,7 +210,10 @@ return (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-semibold text-gray-700 mb-2"
+                      >
                         Full Name *
                       </label>
                       <input
@@ -222,7 +229,10 @@ return (
                     </div>
 
                     <div>
-                      <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-semibold text-gray-700 mb-2"
+                      >
                         Email Address *
                       </label>
                       <input
@@ -238,7 +248,10 @@ return (
                     </div>
 
                     <div>
-                      <label htmlFor="company" className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label
+                        htmlFor="company"
+                        className="block text-sm font-semibold text-gray-700 mb-2"
+                      >
                         Company Name
                       </label>
                       <input
@@ -253,7 +266,10 @@ return (
                     </div>
 
                     <div>
-                      <label htmlFor="website" className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label
+                        htmlFor="website"
+                        className="block text-sm font-semibold text-gray-700 mb-2"
+                      >
                         Website URL
                       </label>
                       <input
@@ -268,7 +284,10 @@ return (
                     </div>
 
                     <div>
-                      <label htmlFor="service" className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label
+                        htmlFor="service"
+                        className="block text-sm font-semibold text-gray-700 mb-2"
+                      >
                         Service Interest *
                       </label>
                       <select
@@ -280,14 +299,19 @@ return (
                         className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-colors"
                       >
                         <option value="">Select a service</option>
-                        {services.map((service, index) => (
-                          <option key={index} value={service}>{service}</option>
+                        {services.map((s, i) => (
+                          <option key={i} value={s}>
+                            {s}
+                          </option>
                         ))}
                       </select>
                     </div>
 
                     <div>
-                      <label htmlFor="budget" className="block text-sm font-semibold text-gray-700 mb-2">
+                      <label
+                        htmlFor="budget"
+                        className="block text-sm font-semibold text-gray-700 mb-2"
+                      >
                         Budget Range
                       </label>
                       <select
@@ -298,15 +322,20 @@ return (
                         className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-colors"
                       >
                         <option value="">Select budget range</option>
-                        {budgetRanges.map((range, index) => (
-                          <option key={index} value={range}>{range}</option>
+                        {budgetRanges.map((range, i) => (
+                          <option key={i} value={range}>
+                            {range}
+                          </option>
                         ))}
                       </select>
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-semibold text-gray-700 mb-2"
+                    >
                       Project Description *
                     </label>
                     <textarea
@@ -321,16 +350,27 @@ return (
                     />
                   </div>
 
+                  {error && (
+                    <p className="text-red-600 text-sm font-medium">{error}</p>
+                  )}
+
                   <div className="flex items-center justify-between">
                     <p className="text-sm text-gray-600">
                       * Required fields. We'll get back to you within 2 hours.
                     </p>
                     <button
                       type="submit"
-                      className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center space-x-2"
+                      disabled={loading}
+                      className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center space-x-2 disabled:opacity-50"
                     >
-                      <span>Send Message</span>
-                      <Send className="h-5 w-5" />
+                      {loading ? (
+                        <span>Sending...</span>
+                      ) : (
+                        <>
+                          <span>Send Message</span>
+                          <Send className="h-5 w-5" />
+                        </>
+                      )}
                     </button>
                   </div>
                 </form>
@@ -343,12 +383,15 @@ return (
                     Message Sent Successfully!
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    Thank you for reaching out. Our team will review your message and get back 
-                    to you within 2 hours with a detailed proposal.
+                    Thank you for reaching out. Our team will review your
+                    message and get back to you within 2 hours with a detailed
+                    proposal.
                   </p>
                   <div className="flex items-center justify-center space-x-2 text-blue-600">
                     <Globe className="h-5 w-5" />
-                    <span className="font-medium">We're excited to work with you!</span>
+                    <span className="font-medium">
+                      We're excited to work with you!
+                    </span>
                   </div>
                 </div>
               )}
