@@ -49,7 +49,7 @@ const Contact = () => {
     {
       icon: Mail,
       title: 'Email',
-      details: ['Asadulit@gmail.com', 'info@asaditcenter.com'],
+      details: ['asadulit@gmail.com', 'info@asaditcenter.com'],
       subtitle: 'We reply within 2 hours'
     },
     {
@@ -78,34 +78,14 @@ const Contact = () => {
   ];
 
   const budgetRanges = [
-    '$100 - $5,000/month',
+    '$100 - $1,000/month',
+    '$1,000 - $2,000/month',
+    '$2,000 - $3,000/month',
+    '$3,000 - $4,000/month',
     '$5,000+/month'
   ];
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    setResult("Sending....");
-    const formData = new FormData(event.target);
-
-    formData.append("access_key", "96c09ea0-464f-408b-a98a-e4db232e359b");
-
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData
-    });
-
-    const data = await response.json();
-
-    if (data.success) {
-      setResult("Form Submitted Successfully");
-      event.target.reset();
-    } else {
-      console.log("Error", data);
-      setResult(data.message);
-    }
-  };
-  
-  return (
+return (
     <section id="contact" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
