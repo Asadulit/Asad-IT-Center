@@ -43,7 +43,7 @@ const Footer = () => {
   ];
 
    const globalOffices = [
-    { city: 'New York', country: 'USA', phone: '+1 ‪(803) 455-4554‬' },
+    { city: 'New York', country: 'USA', phone: '+1 ‪(803) 455 4554‬' },
     { city: 'Dhaka', country: 'Bangladesh', phone: '+880 1925 146273' }
   ];
 
