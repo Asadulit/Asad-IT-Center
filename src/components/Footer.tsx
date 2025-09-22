@@ -42,17 +42,17 @@ const Footer = () => {
     { name: 'Webinars', href: '#' }
   ];
 
-  const globalOffices = [
-    { city: 'New York', country: 'USA', phone: '+1 (555) 123-4567' },
-    { city: 'London', country: 'UK', phone: '+44 20 7946 0958' },
-    { city: 'Sydney', country: 'Australia', phone: '+61 2 1234 5678' }
+  const globalOffices = 
+    { city: 'Dhaka', country: 'Bangladesh', phone: '+880 1925 146273' }
+    { city: 'New York', country: 'USA', phone: '+1 ‪(803) 455-4554‬' },
+    { city: 'London', country: 'UK', phone: '+44 7956 372369' },
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: '#', name: 'Facebook' },
-    { icon: Twitter, href: '#', name: 'Twitter' },
-    { icon: Linkedin, href: '#', name: 'LinkedIn' },
-    { icon: Instagram, href: '#', name: 'Instagram' }
+    { icon: Facebook, href: 'https://www.facebook.com/Asadulit/', name: 'Facebook' },
+    { icon: Twitter, href: 'https://x.com/asadulit', name: 'X' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/asadulit/', name: 'LinkedIn' },
+    { icon: Instagram, href: 'https://www.instagram.com/asadulit', name: 'Instagram' }
   ];
 
   return (
