@@ -67,7 +67,7 @@ const Footer = () => {
                 <div className="p-2 bg-blue-600 rounded-lg">
                   <TrendingUp className="h-6 w-6 text-white" />
                 </div>
-                <span className="text-2xl font-bold">DigitalBoost</span>
+                <span className="text-2xl font-bold">Asad IT Center</span>
               </div>
               
               <p className="text-gray-300 leading-relaxed max-w-md">
@@ -96,7 +96,7 @@ const Footer = () => {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3 text-gray-300">
                   <Mail className="h-4 w-4" />
-                  <span>hello@digitalboost.com</span>
+                  <span>Asadulit@gmail.com</span>
                 </div>
                 <div className="flex items-center space-x-3 text-gray-300">
                   <Phone className="h-4 w-4" />
